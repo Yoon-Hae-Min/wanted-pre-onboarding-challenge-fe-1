@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react';
-import { BoardFrame } from './Board.styles';
+import * as Style from './Board.styles';
 
 export interface BoardFrameProps {
   height: string;
@@ -12,9 +12,9 @@ interface BoardProps extends BoardFrameProps {
 
 const Board: FC<BoardProps> = ({ height, width, children, ...args }) => {
   return (
-    <BoardFrame height={height} width={width} {...args}>
+    <Style.BoardFrame height={height} width={width} {...args}>
       {children}
-    </BoardFrame>
+    </Style.BoardFrame>
   );
 };
 

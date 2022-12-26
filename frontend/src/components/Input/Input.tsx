@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ErrorMessage, InputLayout, InputField } from './Input.styles';
+import * as Style from './Input.styles';
 
 export interface InputLayoutProps {
   width?: string;
@@ -13,10 +13,10 @@ interface InputProps extends InputLayoutProps {
 
 const Input: FC<InputProps> = ({ width = '17.5rem', height, placeholder, errorMessage, ...props }) => {
   return (
-    <InputLayout width={width} height={height} {...props}>
-      <InputField placeholder={placeholder} />
-      <ErrorMessage>{errorMessage}</ErrorMessage>
-    </InputLayout>
+    <Style.InputLayout width={width} height={height} {...props}>
+      <Style.InputField placeholder={placeholder} />
+      <Style.ErrorMessage>{errorMessage}</Style.ErrorMessage>
+    </Style.InputLayout>
   );
 };
 
