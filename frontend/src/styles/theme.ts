@@ -11,6 +11,9 @@ const colors = {
   white: {
     '0': '#FFFFFF',
   },
+  red: {
+    '0': '#FF0000',
+  },
 };
 
 const theme: DefaultTheme = { colors };

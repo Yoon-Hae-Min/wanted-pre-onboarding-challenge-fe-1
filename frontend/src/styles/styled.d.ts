@@ -13,6 +13,9 @@ declare module 'styled-components' {
       white: {
         '0': string;
       };
+      red: {
+        '0': string;
+      };
     };
   }
 }
