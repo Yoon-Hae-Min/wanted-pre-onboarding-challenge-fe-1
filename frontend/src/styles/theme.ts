@@ -3,6 +3,7 @@ import { DefaultTheme } from 'styled-components';
 const colors = {
   blue: {
     '3': '#438AFF',
+    '5': '#A1C5FF',
   },
   gray: {
     '1': 'rgba(0, 0, 0, 0.25)',
