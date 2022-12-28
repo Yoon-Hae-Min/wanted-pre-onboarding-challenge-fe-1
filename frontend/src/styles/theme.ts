@@ -8,6 +8,7 @@ const colors = {
   gray: {
     '1': 'rgba(0, 0, 0, 0.25)',
     '2': '#C7C7C7',
+    '5': '#444444',
   },
   white: {
     '0': '#FFFFFF',
