@@ -4,6 +4,7 @@ import { BoardProps } from './Board';
 export const BoardFrame = styled.div<BoardProps>`
   height: ${(props) => props.height};
   width: ${(props) => props.width};
+  padding: 1rem;
   background-color: ${({ theme }) => theme.colors.white[0]};
   box-shadow: 0rem 0.25rem 1.25rem 0rem ${({ theme }) => theme.colors.gray[1]};
   border-radius: 0.625rem;
