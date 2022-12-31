@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 import { InputProps } from './Input';
 
+export const SignInFormTitle = styled.span`
+  display: block;
+  font-size: 0.625rem;
+  margin-bottom: 0.3125rem;
+`;
+
 export const InputLayout = styled.div<InputProps>`
   display: flex;
   flex-direction: column;
