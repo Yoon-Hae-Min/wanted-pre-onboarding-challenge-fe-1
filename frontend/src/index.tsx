@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignIn from './pages/SignIn/SignIn';
 import Layout from './components/Layout/Layout';
+import SignUp from './pages/SignUp/SignUp';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 const queryClient = new QueryClient({
@@ -28,7 +29,7 @@ root.render(
               <Route path="/"></Route>
               <Route path="/:id"></Route>
               <Route path="/signin" element={<SignIn />}></Route>
-              <Route path="/signup"></Route>
+              <Route path="/signup" element={<SignUp />}></Route>
             </Routes>
           </Layout>
         </BrowserRouter>
