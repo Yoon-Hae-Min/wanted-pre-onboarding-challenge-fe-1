@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import check from '../../assets/svg/check.svg';
+import check from '../../../assets/svg/check.svg';
 
 export const CheckBoxLayout = styled.div`
   display: flex;

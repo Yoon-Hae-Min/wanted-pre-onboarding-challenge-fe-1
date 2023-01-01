@@ -10,6 +10,9 @@ export const BoardFrame = styled.div<BoardProps>`
 `;
 
 export const BoardHeader = styled.div<BoardProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: ${(props) => props.height};
   width: 100%;
   color: ${({ theme }) => theme.colors.white[0]};
