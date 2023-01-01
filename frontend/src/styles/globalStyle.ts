@@ -16,6 +16,9 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         background-color:${({ theme }) => theme.colors.gray[2]}
     }
+    html{
+        font-size: 20px;
+    }
 `;
 
 export default GlobalStyle;
