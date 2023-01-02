@@ -14,7 +14,7 @@ export const HorizontalLine = styled(Line)`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 50%;
+  left: ${(props) => props.left};
   display: block;
   margin-top: 0px;
   border-left: 0.3px solid ${({ theme }) => theme.colors.gray[2]};
