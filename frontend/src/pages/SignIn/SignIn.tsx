@@ -1,8 +1,8 @@
 import React from 'react';
-import Board from '../../components/Board/Board';
+import Board from '../../components/Common/Board/Board';
 import * as Style from './SignIn.styles';
-import Button from '../../components/Button/Button';
-import Input from '../../components/Input/Input';
+import Button from '../../components/Common/Button/Button';
+import Input from '../../components/Common/Input/Input';
 
 const SignIn = () => {
   return (
