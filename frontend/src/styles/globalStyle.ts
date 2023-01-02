@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
         background-color:${({ theme }) => theme.colors.gray[2]}
     }
     html{
-        font-size: 20px;
+        font-size: 9px;
     }
 `;
 

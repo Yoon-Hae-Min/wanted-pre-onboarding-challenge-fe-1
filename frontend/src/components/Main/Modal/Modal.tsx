@@ -1,10 +1,6 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import Board, { BoardProps } from '../../Common/Board/Board';
 import * as Style from './Modal.styles';
-
-interface PropsWithChildren {
-  children: ReactNode | string;
-}
 
 export interface ModalProps extends BoardProps {
   isOpen: boolean;
