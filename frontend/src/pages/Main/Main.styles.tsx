@@ -14,6 +14,10 @@ export const TodoList = styled.div`
   gap: 1rem;
 `;
 
+export const FormLayout = styled(TodoList)`
+  width: 100%;
+  padding: 1rem;
+`;
 export const Article = styled.article`
   display: flex;
   flex-direction: column;
