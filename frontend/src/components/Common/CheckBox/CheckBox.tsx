@@ -3,13 +3,14 @@ import * as Style from './CheckBox.styles';
 
 interface CheckBoxProps {
   children?: ReactElement | string;
+  id: string;
 }
 
-const CheckBox: FC<CheckBoxProps> = ({ children }) => {
+const CheckBox: FC<CheckBoxProps> = ({ children, id }) => {
   return (
     <Style.CheckBoxLayout>
-      <Style.CheckInput type="checkbox" id="checkbox" />
-      <Style.CheckBoxIcon htmlFor="checkbox" />
+      <Style.CheckInput type="checkbox" id={id} />
+      <Style.CheckBoxIcon htmlFor={id} />
       <Style.Label>{children}</Style.Label>
     </Style.CheckBoxLayout>
   );
