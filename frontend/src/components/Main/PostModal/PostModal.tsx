@@ -1,25 +1,74 @@
-import React, { FC } from 'react';
+import React, { FC, FormEvent } from 'react';
 import Modal, { ModalProps } from '../Modal/Modal';
 import TextArea from '../TextArea/TextArea';
 import Input from '../../Common/Input/Input';
 import Button from '../../Common/Button/Button';
+import useForm from '../../../hooks/useForm';
+import useError from '../../../hooks/useError';
+import { Todo, TodoForm, TodoSuccess } from '../../../types/main';
+import { LOCAL_ERROR } from '../../../constants/error';
+import isEmptyText from '../../../utils/isEmptyText';
 import * as Style from './PostModal.styles';
+import { UseMutateFunction } from 'react-query/types/react';
+import { AxiosResponse } from 'axios';
 
-type PostModalProps = Omit<ModalProps, 'children'>;
+interface PostModalProps extends Omit<ModalProps, 'children'> {
+  handleClose: () => void;
+  mutate: UseMutateFunction<
+    AxiosResponse<Todo, any>,
+    unknown,
+    TodoForm,
+    {
+      previousTodos: AxiosResponse<TodoSuccess, any> | undefined;
+    }
+  >;
+  initialState?: TodoForm;
+}
 
-const PostModal: FC<PostModalProps> = ({ isOpen }) => {
+const PostModal: FC<PostModalProps> = ({ isOpen, handleClose, mutate, initialState = { title: '', content: '' } }) => {
+  const [{ title, content }, _, handleChange] = useForm(initialState);
+  const [isError, setError] = useError({
+    title: false,
+    content: false,
+  });
+  const isFormValidate = () => {
+    return [setError('title', isEmptyText(title)), setError('content', isEmptyText(content))];
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    !isFormValidate().includes(true) && mutate({ title, content });
+  };
   return (
-    <Modal.Frame isOpen={isOpen}>
+    <Modal.Frame isOpen={isOpen} onClick={handleClose}>
       <Modal.Header height="3rem">Todo 작성하기</Modal.Header>
-      <Modal.Body>
-        <Style.FormLayout>
-          <Input placeholder="제목을 입력해 주세요" title="제목" width="100%" />
-          <TextArea placeholder="내용을 입력해 주세요" title="본문" rows={3} />
-        </Style.FormLayout>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button>작성하기</Button>
-      </Modal.Footer>
+      <form onSubmit={handleSubmit}>
+        <Modal.Body>
+          <Style.FormLayout>
+            <Input
+              placeholder="제목을 입력해 주세요"
+              title="제목"
+              width="100%"
+              name="title"
+              value={title}
+              onChange={handleChange}
+              errorMessage={isError.title ? LOCAL_ERROR.EMPTY : ''}
+            />
+            <TextArea
+              placeholder="내용을 입력해 주세요"
+              title="본문"
+              rows={3}
+              name="content"
+              value={content}
+              onChange={handleChange}
+              errorMessage={isError.content ? LOCAL_ERROR.EMPTY : ''}
+            />
+          </Style.FormLayout>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button type="submit">작성하기</Button>
+        </Modal.Footer>
+      </form>
     </Modal.Frame>
   );
 };

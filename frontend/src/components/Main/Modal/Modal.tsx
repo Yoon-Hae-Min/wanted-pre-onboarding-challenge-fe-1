@@ -4,11 +4,12 @@ import * as Style from './Modal.styles';
 
 export interface ModalProps extends BoardProps {
   isOpen: boolean;
+  onClick: () => void;
 }
 
-const ModalFrame: FC<ModalProps> = ({ isOpen, width = '30rem', height = '24rem', children }) => {
+const ModalFrame: FC<ModalProps> = ({ isOpen, onClick, width = '30rem', height = '24rem', children }) => {
   return (
-    <Style.Overlay isOpen={isOpen}>
+    <Style.Overlay isOpen={isOpen} onClick={onClick}>
       <Board.Frame width={width} height={height}>
         {children}
       </Board.Frame>
