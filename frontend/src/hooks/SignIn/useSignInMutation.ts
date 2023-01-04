@@ -1,14 +1,15 @@
 import { useMutation } from 'react-query';
 import { postSignIn } from '../../api/signIn';
 import { useNavigate } from 'react-router-dom';
+import { setLocalStorage } from '../../utils/localStorage';
 import { SignInError, SignInForm, SignInSuccess } from '../../types/signIn';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 const useSignInMutation = (setError) => {
   const navigate = useNavigate();
-  return useMutation<SignInSuccess, AxiosError<SignInError>, SignInForm>(postSignIn, {
-    onSuccess: (data) => {
-      console.log('로컬스토리지에 토큰 저장', data);
+  return useMutation<AxiosResponse<SignInSuccess>, AxiosError<SignInError>, SignInForm>(postSignIn, {
+    onSuccess: ({ data }) => {
+      setLocalStorage('token', data.token);
       navigate('/');
     },
     onError: () => {
