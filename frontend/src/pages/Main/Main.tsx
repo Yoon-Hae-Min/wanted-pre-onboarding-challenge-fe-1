@@ -6,29 +6,33 @@ import Fab from '../../components/Common/Fab/Fab';
 import CheckBox from '../../components/Common/CheckBox/CheckBox';
 import PostModal from '../../components/Main/PostModal/PostModal';
 import * as Style from './Main.styles';
+import useTodosQuery from '../../hooks/Main/useTodosQuery';
+// import useTodoMutation from '../../hooks/Main/useTodoMutation';
 
 const Main = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onClick = () => {
     setIsOpen((pre) => !pre);
   };
-
+  const { data: todos } = useTodosQuery();
+  // const { mutate: handleCreateTodo } = useTodoMutation();
+  console.log(todos);
   return (
     <>
-      <PostModal isOpen={isOpen} />
+      <PostModal isOpen={isOpen} mutate={() => {}} />
       <Board.Frame width="45rem" height="57rem">
         <Board.Header height="4.875rem">Todo List</Board.Header>
         <Board.Body>
           <Style.BodyLayout>
             <Style.TodoList>
-              <CheckBox id="1234">asdasdasd</CheckBox>
-              <CheckBox id="12345">asdasdasd</CheckBox>
-              <CheckBox id="12346">asdasdasd</CheckBox>
-              <CheckBox id="12347">asdasdasd</CheckBox>
-              <CheckBox id="12348">asdasdasd</CheckBox>
-              <Style.FabWrapper>
-                <Fab onClick={onClick} />
-              </Style.FabWrapper>
+              <>
+                {todos?.data.data.map((todo) => {
+                  <CheckBox id={todo.id}>{todo.title}</CheckBox>;
+                })}
+                <Style.FabWrapper>
+                  <Fab onClick={onClick} />
+                </Style.FabWrapper>
+              </>
             </Style.TodoList>
             <Line align="horizontal" height="52.125rem" left="40%" />
             <Style.Article>
