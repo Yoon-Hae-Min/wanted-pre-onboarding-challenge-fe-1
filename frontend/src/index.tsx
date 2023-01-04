@@ -6,7 +6,7 @@ import theme from './styles/theme';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SignIn from './pages/SignIn/SignIn';
-import Layout from './components/Layout/Layout';
+import Layout from './components/Common/Layout/Layout';
 import SignUp from './pages/SignUp/SignUp';
 import Main from './pages/Main/Main';
 
