@@ -9,6 +9,7 @@ import SignIn from './pages/SignIn/SignIn';
 import Layout from './components/Common/Layout/Layout';
 import SignUp from './pages/SignUp/SignUp';
 import Main from './pages/Main/Main';
+import AuthenticateRoute from './routers/AuthenticateRoute';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 const queryClient = new QueryClient({
@@ -27,10 +28,14 @@ root.render(
         <BrowserRouter>
           <Layout>
             <Routes>
-              <Route path="/" element={<Main />}></Route>
-              <Route path="/:id" element={<Main />}></Route>
-              <Route path="/signin" element={<SignIn />}></Route>
-              <Route path="/signup" element={<SignUp />}></Route>
+              <Route element={<AuthenticateRoute isAuthenticated={true} />}>
+                <Route path="/" element={<Main />}></Route>
+                <Route path="/:id" element={<Main />}></Route>
+              </Route>
+              <Route element={<AuthenticateRoute isAuthenticated={false} />}>
+                <Route path="/signin" element={<SignIn />}></Route>
+                <Route path="/signup" element={<SignUp />}></Route>
+              </Route>
             </Routes>
           </Layout>
         </BrowserRouter>
