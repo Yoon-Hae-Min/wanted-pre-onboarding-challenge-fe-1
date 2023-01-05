@@ -21,6 +21,7 @@ export const SignInForm = styled.div`
 
 export const SignInFooter = styled.div`
   margin-top: 2.75rem;
+  margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;

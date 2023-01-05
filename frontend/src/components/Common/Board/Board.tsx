@@ -10,7 +10,7 @@ export interface BoardProps extends PropsWithChild {
   width?: string;
 }
 
-const BoardFrame: FC<BoardProps> = ({ height = '62.5rem', width = '62.5rem', children, ...args }) => {
+const BoardFrame: FC<BoardProps> = ({ height, width = '62.5rem', children, ...args }) => {
   return (
     <Style.BoardFrame height={height} width={width} {...args}>
       {children}

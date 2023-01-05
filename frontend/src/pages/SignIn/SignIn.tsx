@@ -33,7 +33,7 @@ const SignIn = () => {
     !isFormValidate().includes(true) && mutate({ email, password });
   };
   return (
-    <Board.Frame width="25rem" height="23.75rem">
+    <Board.Frame width="25rem">
       <Board.Body>
         <Style.SignInHeader>
           <Style.SignInTitle>Todo List</Style.SignInTitle>

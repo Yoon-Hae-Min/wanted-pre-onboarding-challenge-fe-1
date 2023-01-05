@@ -29,5 +29,5 @@ export const InputField = styled.input`
 export const ErrorMessage = styled.span`
   margin-top: 0.3rem;
   color: ${({ theme }) => theme.colors.red[0]};
-  font-size: 0.7rem;
+  font-size: 0.5rem;
 `;

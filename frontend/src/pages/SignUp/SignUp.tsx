@@ -38,7 +38,7 @@ const SignUp = () => {
     !isFormValidate().includes(true) && mutate({ email, password });
   };
   return (
-    <Board.Frame width="25rem" height="30rem">
+    <Board.Frame width="25rem">
       <Board.Body>
         <Style.SignUpHeader>
           <Style.SignUpTitle>회원가입</Style.SignUpTitle>
