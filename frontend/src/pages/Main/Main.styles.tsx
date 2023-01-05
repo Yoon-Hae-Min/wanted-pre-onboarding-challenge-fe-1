@@ -6,7 +6,7 @@ export const BodyLayout = styled.div`
 `;
 
 export const TodoList = styled.div`
-  position: relative;
+  position: absolute;
   display: flex;
   flex-direction: column;
   padding: 2rem;
@@ -19,6 +19,8 @@ export const FormLayout = styled(TodoList)`
   padding: 1rem;
 `;
 export const Article = styled.article`
+  position: absolute;
+  right: 1rem;
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
