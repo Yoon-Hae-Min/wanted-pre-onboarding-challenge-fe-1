@@ -25,6 +25,7 @@ export const Article = styled.article`
   flex-direction: column;
   padding: 1.5rem;
   width: 25rem;
+  max-height: 50rem;
 `;
 
 export const ArticleTitle = styled.span`
@@ -34,7 +35,11 @@ export const ArticleTitle = styled.span`
   font-weight: bold;
 `;
 
-export const ArticleContent = styled.span``;
+export const ArticleContent = styled.span`
+  padding: 0.2rem;
+  height: 100%;
+  overflow: auto;
+`;
 
 export const ButtonWrapper = styled.div`
   text-align: center;
