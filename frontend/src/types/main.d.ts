@@ -13,6 +13,12 @@ export interface TodoError {
   details: string;
 }
 
-export interface TodoSuccess {
+export interface TodosSuccess {
   data: Todo[];
+}
+export interface TodoSuccess {
+  data: Todo;
+}
+export interface TodoDeleteSuccess {
+  data: null;
 }

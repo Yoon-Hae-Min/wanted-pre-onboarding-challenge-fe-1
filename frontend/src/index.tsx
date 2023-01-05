@@ -28,7 +28,7 @@ root.render(
           <Layout>
             <Routes>
               <Route path="/" element={<Main />}></Route>
-              <Route path="/:id"></Route>
+              <Route path="/:id" element={<Main />}></Route>
               <Route path="/signin" element={<SignIn />}></Route>
               <Route path="/signup" element={<SignUp />}></Route>
             </Routes>
