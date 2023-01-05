@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from '../constants/api';
-import { getLocalStorage } from '../utils/localStorage';
-import { useNavigate } from 'react-router-dom';
+import { getLocalStorage, removeLocalStorage } from '../utils/localStorage';
 
 const api = axios.create({
   baseURL: BASE_URL.DEV,
@@ -18,10 +17,20 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
-    const navigate = useNavigate();
     alert('세션이 만료되었습니다. 다시 로그인해 주시기 바랍니다.');
-    navigate('/signIn');
+    window.open('/signIn', '_self');
   }
 );
 
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error?.response?.status === 400 && error?.response?.data.details === 'Token is missing') {
+      removeLocalStorage('token');
+      alert('세션이 만료되었습니다. 다시 로그인해 주시기 바랍니다.');
+      window.open('/signIn', '_self');
+    }
+    return Promise.reject(error);
+  }
+);
 export default api;
