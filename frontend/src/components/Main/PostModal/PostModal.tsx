@@ -39,7 +39,6 @@ const PostModal: FC<PostModalProps> = ({ isOpen, onClick, mutate, initialState }
   const handleSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      console.log(title, content);
       !isFormValidate().includes(true) && mutate({ title, content });
     },
     [title, content]
