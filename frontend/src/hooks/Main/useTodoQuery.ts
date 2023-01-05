@@ -4,7 +4,7 @@ import { TodoError, TodoSuccess } from '../../types/main';
 import { AxiosError, AxiosResponse } from 'axios';
 
 const useTodoQuery = (id: string | undefined) =>
-  useQuery<AxiosResponse<TodoSuccess>, AxiosError<TodoError>>(['Todo', id], getTodo, {
+  useQuery<AxiosResponse<TodoSuccess>, AxiosError<TodoError>>(['todo', id], getTodo, {
     enabled: !!id,
   });
 

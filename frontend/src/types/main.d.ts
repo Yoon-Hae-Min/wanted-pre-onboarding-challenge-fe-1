@@ -5,8 +5,8 @@ export interface TodoForm {
 
 export interface Todo extends TodoForm {
   id: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface TodoError {

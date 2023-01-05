@@ -1,4 +1,4 @@
-import React, { FC, FormEvent } from 'react';
+import React, { FC, FormEvent, useCallback, useEffect } from 'react';
 import Modal, { ModalProps } from '../Modal/Modal';
 import TextArea from '../TextArea/TextArea';
 import Input from '../../Common/Input/Input';
@@ -25,20 +25,29 @@ interface PostModalProps extends Omit<ModalProps, 'children'> {
   initialState?: TodoForm;
 }
 
-const PostModal: FC<PostModalProps> = ({ isOpen, onClick, mutate, initialState = { title: '', content: '' } }) => {
-  const [{ title, content }, _, handleChange] = useForm(initialState);
+const PostModal: FC<PostModalProps> = ({ isOpen, onClick, mutate, initialState }) => {
+  const [{ title, content }, _, handleChange, setState] = useForm(initialState ?? { title: '', content: '' });
   const [isError, setError] = useError({
     title: false,
     content: false,
   });
-  const isFormValidate = () => {
-    return [setError('title', isEmptyText(title)), setError('content', isEmptyText(content))];
-  };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    !isFormValidate().includes(true) && mutate({ title, content });
-  };
+  const isFormValidate = useCallback(() => {
+    return [setError('title', isEmptyText(title)), setError('content', isEmptyText(content))];
+  }, [title, content]);
+
+  const handleSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      console.log(title, content);
+      !isFormValidate().includes(true) && mutate({ title, content });
+    },
+    [title, content]
+  );
+  useEffect(() => {
+    initialState && setState(initialState);
+  }, [initialState]);
+
   return (
     <Modal.Frame isOpen={isOpen} onClick={onClick}>
       <Modal.Header height="3rem">Todo 작성하기</Modal.Header>

@@ -13,3 +13,6 @@ export const getTodo = ({ queryKey }): Promise<AxiosResponse<TodoSuccess>> => {
 };
 
 export const deleteTodo = (id: string): Promise<AxiosResponse<TodoDeleteSuccess>> => api.delete(`todos/${id}`);
+
+export const updateTodo = ({ title, content, id }: Todo): Promise<AxiosResponse<TodoSuccess>> =>
+  api.put(`todos/${id}`, { title, content });
