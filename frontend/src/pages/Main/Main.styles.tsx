@@ -11,7 +11,9 @@ export const TodoList = styled.div`
   flex-direction: column;
   padding: 2rem;
   width: 16rem;
+  max-height: 50rem;
   gap: 1rem;
+  overflow: auto;
 `;
 
 export const FormLayout = styled(TodoList)`
@@ -50,8 +52,6 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const FabWrapper = styled.div`
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  margin-right: 0.5rem;
+  margin-left: auto;
+  margin-right: -1rem;
 `;

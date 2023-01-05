@@ -33,8 +33,9 @@ export const CheckBoxIcon = styled.label`
     background-color: ${({ theme }) => theme.colors.blue[5]};
   }
 `;
-export const Label = styled.span`
+export const Label = styled.span<{ check: boolean }>`
   margin-left: 0.3125rem;
+  text-decoration: ${(props) => (props.check ? 'line-through;' : 'none')};
 `;
 
 export const CheckInput = styled.input`
