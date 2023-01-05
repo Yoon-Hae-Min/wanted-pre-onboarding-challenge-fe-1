@@ -8,30 +8,43 @@ import PostModal from '../../components/Main/PostModal/PostModal';
 import * as Style from './Main.styles';
 import useTodosQuery from '../../hooks/Main/useTodosQuery';
 import useTodoMutation from '../../hooks/Main/useTodoMutation';
+import useTodoQuery from '../../hooks/Main/useTodoQuery';
+import { useNavigate, useParams } from 'react-router-dom';
+import useTodoDeleteMutation from '../../hooks/Main/useTodoDeleteMutation';
 
 const Main = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const [isOpen, setIsOpen] = useState(false);
-  const handleModal = () => {
-    setIsOpen((pre) => !pre);
-  };
+
   const { data: todos } = useTodosQuery();
-  console.log(todos);
+  const { data: todo } = useTodoQuery(id);
   const { mutate: handleCreateTodo } = useTodoMutation();
+  const { mutate: handleDeleteTodo } = useTodoDeleteMutation();
+
+  const handleModal = () => setIsOpen((pre) => !pre);
+  const handleTodoDetail = (id: string) => navigate(`/${id}`);
+
   return (
     <>
-      <PostModal isOpen={isOpen} handleClose={handleModal} mutate={handleCreateTodo} />
+      <PostModal isOpen={isOpen} onClick={handleModal} mutate={handleCreateTodo} />
       <Board.Frame width="45rem" height="57rem">
         <Board.Header height="4.875rem">Todo List</Board.Header>
         <Board.Body>
           <Style.BodyLayout>
             <Style.TodoList>
               <>
-                {todos &&
-                  todos.data.data.map((todo) => (
-                    <CheckBox key={todo.id} id={todo.id}>
-                      {todo.title}
-                    </CheckBox>
-                  ))}
+                {todos?.data.data.map((todo) => (
+                  <CheckBox
+                    key={todo.id}
+                    id={todo.id}
+                    onLabelClick={() => {
+                      handleTodoDetail(todo.id);
+                    }}
+                  >
+                    {todo.title}
+                  </CheckBox>
+                ))}
                 <Style.FabWrapper>
                   <Fab onClick={handleModal} />
                 </Style.FabWrapper>
@@ -39,11 +52,15 @@ const Main = () => {
             </Style.TodoList>
             <Line align="horizontal" height="52.125rem" left="40%" />
             <Style.Article>
-              <Style.ArticleTitle>Doit1</Style.ArticleTitle>
-              <Style.ArticleContent>내용</Style.ArticleContent>
+              <Style.ArticleTitle>{todo?.data.data.title}</Style.ArticleTitle>
+              <Style.ArticleContent>{todo?.data.data.content}</Style.ArticleContent>
               <Style.ButtonWrapper>
-                <Button color="primary">수정</Button>
-                <Button color="warning">삭제</Button>
+                {todo && <Button color="primary">수정</Button>}
+                {todo && (
+                  <Button color="warning" onClick={() => handleDeleteTodo(todo.data.data.id)}>
+                    삭제
+                  </Button>
+                )}
               </Style.ButtonWrapper>
             </Style.Article>
           </Style.BodyLayout>

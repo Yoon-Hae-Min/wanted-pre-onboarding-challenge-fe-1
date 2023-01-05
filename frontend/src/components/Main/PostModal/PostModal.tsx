@@ -5,7 +5,7 @@ import Input from '../../Common/Input/Input';
 import Button from '../../Common/Button/Button';
 import useForm from '../../../hooks/useForm';
 import useError from '../../../hooks/useError';
-import { Todo, TodoForm, TodoSuccess } from '../../../types/main';
+import { Todo, TodoForm, TodosSuccess } from '../../../types/main';
 import { LOCAL_ERROR } from '../../../constants/error';
 import isEmptyText from '../../../utils/isEmptyText';
 import * as Style from './PostModal.styles';
@@ -13,19 +13,19 @@ import { UseMutateFunction } from 'react-query/types/react';
 import { AxiosResponse } from 'axios';
 
 interface PostModalProps extends Omit<ModalProps, 'children'> {
-  handleClose: () => void;
+  onClick: () => void;
   mutate: UseMutateFunction<
     AxiosResponse<Todo, any>,
     unknown,
     TodoForm,
     {
-      previousTodos: AxiosResponse<TodoSuccess, any> | undefined;
+      previousTodos: AxiosResponse<TodosSuccess, any> | undefined;
     }
   >;
   initialState?: TodoForm;
 }
 
-const PostModal: FC<PostModalProps> = ({ isOpen, handleClose, mutate, initialState = { title: '', content: '' } }) => {
+const PostModal: FC<PostModalProps> = ({ isOpen, onClick, mutate, initialState = { title: '', content: '' } }) => {
   const [{ title, content }, _, handleChange] = useForm(initialState);
   const [isError, setError] = useError({
     title: false,
@@ -40,7 +40,7 @@ const PostModal: FC<PostModalProps> = ({ isOpen, handleClose, mutate, initialSta
     !isFormValidate().includes(true) && mutate({ title, content });
   };
   return (
-    <Modal.Frame isOpen={isOpen} onClick={handleClose}>
+    <Modal.Frame isOpen={isOpen} onClick={onClick}>
       <Modal.Header height="3rem">Todo 작성하기</Modal.Header>
       <form onSubmit={handleSubmit}>
         <Modal.Body>
