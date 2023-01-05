@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import { BoardProps } from './Board';
 
 export const BoardFrame = styled.div<BoardProps>`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   height: ${(props) => props.height};
   width: ${(props) => props.width};
   background-color: ${({ theme }) => theme.colors.white[0]};

@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react';
-import Board, { BoardProps } from '../../Common/Board/Board';
+import { BoardProps } from '../../Common/Board/Board';
 import * as Style from './Modal.styles';
 
 export interface ModalProps extends BoardProps {
@@ -9,11 +9,12 @@ export interface ModalProps extends BoardProps {
 
 const ModalFrame: FC<ModalProps> = ({ isOpen, onClick, width = '30rem', height = '24rem', children }) => {
   return (
-    <Style.Overlay isOpen={isOpen} onClick={onClick}>
-      <Board.Frame width={width} height={height}>
+    <>
+      <Style.Overlay isOpen={isOpen} onClick={onClick}></Style.Overlay>
+      <Style.ModalFrame isOpen={isOpen} width={width} height={height}>
         {children}
-      </Board.Frame>
-    </Style.Overlay>
+      </Style.ModalFrame>
+    </>
   );
 };
 

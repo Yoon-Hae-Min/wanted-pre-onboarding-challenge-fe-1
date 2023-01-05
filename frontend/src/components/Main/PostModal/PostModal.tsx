@@ -1,5 +1,5 @@
 import React, { FC, FormEvent, useCallback, useEffect } from 'react';
-import Modal, { ModalProps } from '../Modal/Modal';
+import Modal from '../Modal/Modal';
 import TextArea from '../TextArea/TextArea';
 import Input from '../../Common/Input/Input';
 import Button from '../../Common/Button/Button';
@@ -12,8 +12,9 @@ import * as Style from './PostModal.styles';
 import { UseMutateFunction } from 'react-query/types/react';
 import { AxiosResponse } from 'axios';
 
-interface PostModalProps extends Omit<ModalProps, 'children'> {
-  onClick: () => void;
+interface PostModalProps {
+  isOpen: boolean;
+  handleClose: () => void;
   mutate: UseMutateFunction<
     AxiosResponse<Todo, any>,
     unknown,
@@ -25,7 +26,7 @@ interface PostModalProps extends Omit<ModalProps, 'children'> {
   initialState?: TodoForm;
 }
 
-const PostModal: FC<PostModalProps> = ({ isOpen, onClick, mutate, initialState }) => {
+const PostModal: FC<PostModalProps> = ({ isOpen, handleClose, mutate, initialState }) => {
   const [{ title, content }, _, handleChange, setState] = useForm(initialState ?? { title: '', content: '' });
   const [isError, setError] = useError({
     title: false,
@@ -39,7 +40,10 @@ const PostModal: FC<PostModalProps> = ({ isOpen, onClick, mutate, initialState }
   const handleSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      !isFormValidate().includes(true) && mutate({ title, content });
+      if (!isFormValidate().includes(true)) {
+        mutate({ title, content });
+        handleClose();
+      }
     },
     [title, content]
   );
@@ -48,7 +52,7 @@ const PostModal: FC<PostModalProps> = ({ isOpen, onClick, mutate, initialState }
   }, [initialState]);
 
   return (
-    <Modal.Frame isOpen={isOpen} onClick={onClick}>
+    <Modal.Frame isOpen={isOpen} onClick={handleClose}>
       <Modal.Header height="3rem">Todo 작성하기</Modal.Header>
       <form onSubmit={handleSubmit}>
         <Modal.Body>

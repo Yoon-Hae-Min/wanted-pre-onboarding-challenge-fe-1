@@ -31,11 +31,11 @@ const Main = () => {
   const handleTodoDetail = (id: string) => navigate(`/${id}`);
   return (
     <>
-      <PostModal isOpen={isCreateOpen} onClick={handleCreateModal} mutate={handleCreateTodo} />
+      <PostModal isOpen={isCreateOpen} handleClose={handleCreateModal} mutate={handleCreateTodo} />
       {todo && (
         <PostModal
           isOpen={isModifyOpen}
-          onClick={handleModifyModal}
+          handleClose={handleModifyModal}
           mutate={({ title, content }) => handleUpdateTodo({ title, content, id: todo.data.data.id })}
           initialState={todo.data.data}
         />
