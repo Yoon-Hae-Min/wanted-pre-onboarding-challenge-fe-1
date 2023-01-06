@@ -1,9 +1,7 @@
-import { SignInForm, SignInSuccess } from './signIn';
+import { SignInForm, SignInSuccess, SignInError } from './signIn';
 
 export type SignUpForm = SignInForm;
 
 export type SignUpSuccess = SignInSuccess;
 
-export interface SignUpError {
-  details: string;
-}
+export type SignUpError = SignInError;

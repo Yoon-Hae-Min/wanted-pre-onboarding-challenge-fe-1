@@ -1,9 +1,8 @@
-export interface TodoForm {
+export type TodoForm = Pick<Todo, 'title' | 'content'>;
+
+export interface Todo {
   title: string;
   content: string;
-}
-
-export interface Todo extends TodoForm {
   id: string;
   createdAt?: string;
   updatedAt?: string;
