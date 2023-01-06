@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { updateTodo } from '../../api/main';
 import { AxiosResponse } from 'axios';
-import { Todo, TodoSuccess, TodosSuccess } from '../../types/main';
+import { Todo, TodoReadSuccess, TodosReadSuccess } from '../../types/main';
 
 const useTodoUpdateMutation = () => {
   const queryClient = useQueryClient();
@@ -9,16 +9,16 @@ const useTodoUpdateMutation = () => {
     onMutate: async (newTodo: Todo) => {
       await queryClient.cancelQueries({ queryKey: ['todos'] });
       await queryClient.cancelQueries({ queryKey: ['todo', newTodo.id] });
-      const previousTodo = queryClient.getQueryData<AxiosResponse<TodoSuccess>>(['todo', newTodo.id]);
-      const previousTodos = queryClient.getQueryData<AxiosResponse<TodosSuccess>>(['todos']);
+      const previousTodo = queryClient.getQueryData<AxiosResponse<TodoReadSuccess>>(['todo', newTodo.id]);
+      const previousTodos = queryClient.getQueryData<AxiosResponse<TodosReadSuccess>>(['todos']);
       if (previousTodo && previousTodos) {
-        queryClient.setQueryData<AxiosResponse<TodoSuccess>>(['todo', newTodo.id], {
+        queryClient.setQueryData<AxiosResponse<TodoReadSuccess>>(['todo', newTodo.id], {
           ...previousTodo,
           data: {
             data: newTodo,
           },
         });
-        queryClient.setQueryData<AxiosResponse<TodosSuccess>>(['todos'], {
+        queryClient.setQueryData<AxiosResponse<TodosReadSuccess>>(['todos'], {
           ...previousTodos,
           data: {
             data: previousTodos.data.data.map((todo) => (todo.id === newTodo.id ? newTodo : todo)),
@@ -29,10 +29,10 @@ const useTodoUpdateMutation = () => {
     },
     onError: (err, newTodo, context) => {
       if (context?.previousTodo) {
-        queryClient.setQueryData<AxiosResponse<TodoSuccess>>(['todo', newTodo.id], context.previousTodo);
+        queryClient.setQueryData<AxiosResponse<TodoReadSuccess>>(['todo', newTodo.id], context.previousTodo);
       }
       if (context?.previousTodos) {
-        queryClient.setQueryData<AxiosResponse<TodosSuccess>>(['todos'], context.previousTodos);
+        queryClient.setQueryData<AxiosResponse<TodosReadSuccess>>(['todos'], context.previousTodos);
       }
     },
     onSettled: (data, error, newTodo) => {

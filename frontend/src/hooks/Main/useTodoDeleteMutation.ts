@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { deleteTodo } from '../../api/main';
-import { TodosSuccess } from '../../types/main';
+import { TodosReadSuccess } from '../../types/main';
 import { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,21 +10,20 @@ const useTodoDeleteMutation = () => {
   return useMutation(deleteTodo, {
     onMutate: async (targetId) => {
       await queryClient.cancelQueries({ queryKey: ['todos'] });
-      const previousTodos = queryClient.getQueryData<AxiosResponse<TodosSuccess>>(['todos']);
+      const previousTodos = queryClient.getQueryData<AxiosResponse<TodosReadSuccess>>(['todos']);
       if (previousTodos) {
-        queryClient.setQueryData<AxiosResponse<TodosSuccess>>(['todos'], {
+        queryClient.setQueryData<AxiosResponse<TodosReadSuccess>>(['todos'], {
           ...previousTodos,
           data: {
             data: [...previousTodos.data.data.filter((todo) => todo.id !== targetId)],
           },
         });
       }
-      console.log(queryClient);
       return { previousTodos };
     },
     onError: (err, newTodo, context) => {
       if (context?.previousTodos) {
-        queryClient.setQueryData<AxiosResponse<TodosSuccess>>(['todos'], context.previousTodos);
+        queryClient.setQueryData<AxiosResponse<TodosReadSuccess>>(['todos'], context.previousTodos);
       }
     },
     onSettled: () => {

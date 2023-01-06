@@ -12,12 +12,14 @@ export interface TodoError {
   details: string;
 }
 
-export interface TodosSuccess {
+export interface TodosReadSuccess {
   data: Todo[];
 }
-export interface TodoSuccess {
+export type TodoCreateSuccess = {
   data: Todo;
-}
+};
+export type TodoReadSuccess = TodoCreateSuccess;
+export type TodoUpdateSuccess = TodoCreateSuccess;
 export interface TodoDeleteSuccess {
   data: null;
 }

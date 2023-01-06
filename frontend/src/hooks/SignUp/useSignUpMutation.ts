@@ -11,6 +11,7 @@ const useSignUpMutation = () => {
   return useMutation<AxiosResponse<SignUpSuccess>, AxiosError<SignUpError>, SignUpForm>(postSignUp, {
     onSuccess: ({ data }) => {
       setLocalStorage('token', data.token);
+      alert('회원가입이 완료되었습니다');
       navigate('/');
     },
     onError: () => {

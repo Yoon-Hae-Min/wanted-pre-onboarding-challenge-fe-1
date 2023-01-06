@@ -5,7 +5,7 @@ import Input from '../../Common/Input/Input';
 import Button from '../../Common/Button/Button';
 import useForm from '../../../hooks/useForm';
 import useError from '../../../hooks/useError';
-import { Todo, TodoForm, TodosSuccess } from '../../../types/main';
+import { TodoCreateSuccess, TodoForm, TodoUpdateSuccess, TodosReadSuccess } from '../../../types/main';
 import { LOCAL_ERROR } from '../../../constants/error';
 import isEmptyText from '../../../utils/isEmptyText';
 import * as Style from './PostModal.styles';
@@ -16,11 +16,11 @@ interface PostModalProps {
   isOpen: boolean;
   handleClose: () => void;
   mutate: UseMutateFunction<
-    AxiosResponse<Todo, any>,
+    AxiosResponse<TodoCreateSuccess | TodoUpdateSuccess>,
     unknown,
     TodoForm,
     {
-      previousTodos: AxiosResponse<TodosSuccess, any> | undefined;
+      previousTodos: AxiosResponse<TodosReadSuccess> | undefined;
     }
   >;
   initialState?: TodoForm;
