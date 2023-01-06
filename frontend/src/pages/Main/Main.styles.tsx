@@ -7,10 +7,11 @@ export const BodyLayout = styled.div`
 
 export const TodoList = styled.div`
   position: absolute;
+  left: 0;
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  width: 16rem;
+  width: 40%;
   max-height: 50rem;
   gap: 1rem;
   overflow: auto;
@@ -22,11 +23,11 @@ export const FormLayout = styled(TodoList)`
 `;
 export const Article = styled.article`
   position: absolute;
-  right: 1rem;
+  right: 0;
   display: flex;
   flex-direction: column;
-  padding: 1.5rem;
-  width: 25rem;
+  padding: 2rem;
+  width: 60%;
   max-height: 50rem;
 `;
 

@@ -12,6 +12,7 @@ export const Overlay = styled.div<Pick<ModalProps, 'isOpen'>>`
 `;
 export const ModalFrame = styled(BoardFrame)<Pick<ModalProps, 'isOpen'>>`
   display: ${(props) => (props.isOpen ? 'block' : 'none')};
+  position: absolute;
   z-index: 3;
 `;
 export const ModalHeader = styled(BoardHeader)``;

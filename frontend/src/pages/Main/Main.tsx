@@ -40,7 +40,7 @@ const Main = () => {
           initialState={todo.data.data}
         />
       )}
-      <Board.Frame width="45rem" height="57rem">
+      <Board.Frame width="45rem" height="100%">
         <Board.Header height="4.875rem">Todo List</Board.Header>
         <Board.Body>
           <Style.BodyLayout>

@@ -6,4 +6,5 @@ export const Layout = styled.div`
   align-items: center;
   height: 100vh;
   width: 100%;
+  padding: 3rem;
 `;
