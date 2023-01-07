@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import check from '../../../assets/svg/check.svg';
 
 export const CheckBoxLayout = styled.div`
@@ -33,9 +33,32 @@ export const CheckBoxIcon = styled.label`
     background-color: ${({ theme }) => theme.colors.blue[5]};
   }
 `;
+const lineThrough = keyframes`
+from{
+  width:0;
+}
+to{
+  width:100%;
+}
+`;
+
+const lineThroughAnimation = css`
+  animation: ${lineThrough} 0.2s linear forwards;
+`;
+
 export const Label = styled.span<{ check: boolean }>`
+  position: relative;
   margin-left: 0.3125rem;
-  text-decoration: ${(props) => (props.check ? 'line-through;' : 'none')};
+  &:after {
+    content: ' ';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background: black;
+    ${(props) => (props.check ? lineThroughAnimation : '')};
+  }
 `;
 
 export const CheckInput = styled.input`

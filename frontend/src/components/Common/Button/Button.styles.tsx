@@ -17,4 +17,5 @@ export const Button = styled.button<ButtonProps>`
   font-size: 0.625rem;
   color: ${({ theme }) => theme.colors.white[0]};
   outline: none;
+  ${({ theme }) => theme.animation.hoverButton};
 `;

@@ -1,4 +1,4 @@
-import { DefaultTheme } from 'styled-components';
+import { DefaultTheme, css } from 'styled-components';
 
 const colors = {
   blue: {
@@ -18,7 +18,15 @@ const colors = {
     '3': '#FF8080',
   },
 };
+const animation = {
+  hoverButton: css`
+    &:hover {
+      transform: scale(1.1);
+      transition: 0.3s;
+    }
+  `,
+};
 
-const theme: DefaultTheme = { colors };
+const theme: DefaultTheme = { colors, animation };
 
 export default theme;

@@ -8,4 +8,5 @@ export const Fab = styled.button`
   height: 2rem;
   background-color: ${({ theme }) => theme.colors.blue[5]};
   border-radius: 50%;
+  ${({ theme }) => theme.animation.hoverButton};
 `;
