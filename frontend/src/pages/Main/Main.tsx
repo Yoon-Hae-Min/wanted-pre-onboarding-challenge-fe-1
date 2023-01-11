@@ -12,6 +12,7 @@ import useTodoQuery from '../../hooks/Main/useTodoQuery';
 import { useNavigate, useParams } from 'react-router-dom';
 import useTodoDeleteMutation from '../../hooks/Main/useTodoDeleteMutation';
 import useTodoUpdateMutation from '../../hooks/Main/useTodoUpdateMutation';
+import NavigationBar from '../../components/Main/NavigationBar/NavigationBar';
 
 const Main = () => {
   const navigate = useNavigate();
@@ -43,43 +44,42 @@ const Main = () => {
       <Board.Frame width="45rem" height="100%">
         <Board.Header height="5%">Todo List</Board.Header>
         <Board.Body height="95%">
-          <Style.BodyLayout>
-            <Style.TodoList>
-              <>
-                {todos?.data.data.map((todo) => (
-                  <CheckBox
-                    key={todo.id}
-                    id={todo.id}
-                    onLabelClick={() => {
-                      handleTodoDetail(todo.id);
-                    }}
-                  >
-                    {todo.title}
-                  </CheckBox>
-                ))}
-                <Style.FabWrapper>
-                  <Fab onClick={handleCreateModal} />
-                </Style.FabWrapper>
-              </>
-            </Style.TodoList>
-            <Line align="horizontal" height="100%" left="40%" />
-            <Style.Article>
-              <Style.ArticleTitle>{todo?.data.data.title}</Style.ArticleTitle>
-              <Style.ArticleContent>{todo?.data.data.content}</Style.ArticleContent>
-              <Style.ButtonWrapper>
-                {todo && (
-                  <Button color="primary" onClick={handleModifyModal}>
-                    수정
-                  </Button>
-                )}
-                {todo && (
-                  <Button color="warning" onClick={() => handleDeleteTodo(todo.data.data.id)}>
-                    삭제
-                  </Button>
-                )}
-              </Style.ButtonWrapper>
-            </Style.Article>
-          </Style.BodyLayout>
+          <NavigationBar />
+          <Style.TodoList>
+            <>
+              {todos?.data.data.map((todo) => (
+                <CheckBox
+                  key={todo.id}
+                  id={todo.id}
+                  onLabelClick={() => {
+                    handleTodoDetail(todo.id);
+                  }}
+                >
+                  {todo.title}
+                </CheckBox>
+              ))}
+              <Style.FabWrapper>
+                <Fab onClick={handleCreateModal} />
+              </Style.FabWrapper>
+            </>
+          </Style.TodoList>
+          <Line align="horizontal" height="100%" left="40%" />
+          <Style.Article>
+            <Style.ArticleTitle>{todo?.data.data.title}</Style.ArticleTitle>
+            <Style.ArticleContent>{todo?.data.data.content}</Style.ArticleContent>
+            <Style.ButtonWrapper>
+              {todo && (
+                <Button color="primary" onClick={handleModifyModal}>
+                  수정
+                </Button>
+              )}
+              {todo && (
+                <Button color="warning" onClick={() => handleDeleteTodo(todo.data.data.id)}>
+                  삭제
+                </Button>
+              )}
+            </Style.ButtonWrapper>
+          </Style.Article>
         </Board.Body>
       </Board.Frame>
     </>

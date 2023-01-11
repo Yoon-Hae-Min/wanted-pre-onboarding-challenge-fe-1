@@ -1,10 +1,5 @@
 import styled from 'styled-components';
 
-export const BodyLayout = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 export const TodoList = styled.div`
   position: absolute;
   left: 0;
