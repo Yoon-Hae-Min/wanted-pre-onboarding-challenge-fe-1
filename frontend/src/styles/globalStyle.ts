@@ -17,6 +17,9 @@ const GlobalStyle = createGlobalStyle`
         background-color:${({ theme }) => theme.colors.gray[2]}
     }
     html{
+        @media all and (min-width:1024px) {
+            font-size:16px
+        }
         font-size: 9px;
     }
 `;

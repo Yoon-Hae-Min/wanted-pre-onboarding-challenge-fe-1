@@ -41,8 +41,8 @@ const Main = () => {
         />
       )}
       <Board.Frame width="45rem" height="100%">
-        <Board.Header height="4.875rem">Todo List</Board.Header>
-        <Board.Body>
+        <Board.Header height="5%">Todo List</Board.Header>
+        <Board.Body height="95%">
           <Style.BodyLayout>
             <Style.TodoList>
               <>
@@ -62,7 +62,7 @@ const Main = () => {
                 </Style.FabWrapper>
               </>
             </Style.TodoList>
-            <Line align="horizontal" height="52.125rem" left="40%" />
+            <Line align="horizontal" height="100%" left="40%" />
             <Style.Article>
               <Style.ArticleTitle>{todo?.data.data.title}</Style.ArticleTitle>
               <Style.ArticleContent>{todo?.data.data.content}</Style.ArticleContent>

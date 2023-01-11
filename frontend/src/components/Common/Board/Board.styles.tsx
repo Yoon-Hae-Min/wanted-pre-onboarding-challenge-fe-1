@@ -20,7 +20,8 @@ export const BoardHeader = styled.div<BoardProps>`
   border-radius: 0.625rem 0.625rem 0rem 0rem;
 `;
 
-export const BoardBody = styled.div`
+export const BoardBody = styled.div<BoardProps>`
   position: relative;
   padding: 1rem;
+  height: ${(props) => props.height};
 `;

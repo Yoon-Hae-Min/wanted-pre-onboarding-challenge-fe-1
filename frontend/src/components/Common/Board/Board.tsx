@@ -26,7 +26,11 @@ const BoardHeader: FC<BoardProps> = ({ height = '10rem', children, ...args }) =>
   );
 };
 
-const BoardBody: FC<PropsWithChild> = ({ children }) => <Style.BoardBody>{children}</Style.BoardBody>;
+const BoardBody: FC<BoardProps> = ({ height, children, ...args }) => (
+  <Style.BoardBody height={height} {...args}>
+    {children}
+  </Style.BoardBody>
+);
 
 interface BoardType {
   Frame: FC<BoardProps>;

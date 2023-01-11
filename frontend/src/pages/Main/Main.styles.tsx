@@ -10,9 +10,9 @@ export const TodoList = styled.div`
   left: 0;
   display: flex;
   flex-direction: column;
-  padding: 2rem;
   width: 40%;
-  max-height: 50rem;
+  max-height: 100%;
+  padding: 2rem;
   gap: 1rem;
   overflow: auto;
 `;
@@ -28,7 +28,7 @@ export const Article = styled.article`
   flex-direction: column;
   padding: 2rem;
   width: 60%;
-  max-height: 50rem;
+  max-height: 100%;
 `;
 
 export const ArticleTitle = styled.span`
