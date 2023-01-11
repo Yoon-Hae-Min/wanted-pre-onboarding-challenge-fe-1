@@ -13,10 +13,10 @@ import useSignUpMutation from '../../hooks/SignUp/useSignUpMutation';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [{ email, password, passwordCheck }, _, handleChange] = useForm({
+  const [{ email, password, passwordConfirm: passwordCheck }, _, handleChange] = useForm({
     email: '',
     password: '',
-    passwordCheck: '',
+    passwordConfirm: '',
   });
   const [isError, setError] = useError({
     email: false,
