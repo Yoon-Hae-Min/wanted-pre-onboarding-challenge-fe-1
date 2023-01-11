@@ -23,21 +23,23 @@ const Main = () => {
   const { data: todos } = useTodosQuery();
   const { data: todo } = useTodoQuery(id);
 
-  const { mutate: handleCreateTodo } = useTodoMutation();
-  const { mutate: handleDeleteTodo } = useTodoDeleteMutation();
-  const { mutate: handleUpdateTodo } = useTodoUpdateMutation();
+  const { mutate: createTodoMutate } = useTodoMutation();
+  const { mutate: deleteTodoMutate } = useTodoDeleteMutation();
+  const { mutate: updateTodoMutate } = useTodoUpdateMutation();
 
   const handleCreateModal = () => setIsCreateOpen((pre) => !pre);
   const handleModifyModal = () => setIsModifyOpen((pre) => !pre);
+
   const handleTodoDetail = (id: string) => navigate(`/${id}`);
+  const handleDeleteTodo = (id: string) => confirm('삭제 하시겠습니까?') && deleteTodoMutate(id);
   return (
     <>
-      <PostModal isOpen={isCreateOpen} handleClose={handleCreateModal} mutate={handleCreateTodo} />
+      <PostModal isOpen={isCreateOpen} handleClose={handleCreateModal} mutate={createTodoMutate} />
       {todo && (
         <PostModal
           isOpen={isModifyOpen}
           handleClose={handleModifyModal}
-          mutate={({ title, content }) => handleUpdateTodo({ title, content, id: todo.data.data.id })}
+          mutate={({ title, content }) => updateTodoMutate({ title, content, id: todo.data.data.id })}
           initialState={todo.data.data}
         />
       )}
