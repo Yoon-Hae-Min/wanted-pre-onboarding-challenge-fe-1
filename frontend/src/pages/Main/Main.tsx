@@ -48,16 +48,14 @@ const Main = () => {
         <Board.Body height="95%">
           <NavigationBar />
           <Style.TodoList>
-            <>
-              {todos?.data.data.map((todo) => (
-                <CheckBox key={todo.id} id={todo.id}>
-                  <Link to={PAGE_PATH.TODO_DETAIL(todo.id)}>{todo.title}</Link>
-                </CheckBox>
-              ))}
-              <Style.FabWrapper>
-                <Fab onClick={handleCreateModal} />
-              </Style.FabWrapper>
-            </>
+            {todos?.data.data.map((todo) => (
+              <CheckBox key={todo.id} id={todo.id}>
+                <Link to={PAGE_PATH.TODO_DETAIL(todo.id)}>{todo.title}</Link>
+              </CheckBox>
+            ))}
+            <Style.FabWrapper>
+              <Fab onClick={handleCreateModal} />
+            </Style.FabWrapper>
           </Style.TodoList>
           <Line align="horizontal" height="100%" left="40%" />
           <Style.Article>

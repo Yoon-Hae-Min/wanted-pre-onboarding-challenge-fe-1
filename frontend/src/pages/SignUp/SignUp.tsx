@@ -14,7 +14,7 @@ import { PAGE_PATH } from '../../constants/path';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [{ email, password, passwordConfirm: passwordCheck }, _, handleChange] = useForm({
+  const [{ email, password, passwordConfirm }, _, handleChange] = useForm({
     email: '',
     password: '',
     passwordConfirm: '',
@@ -30,7 +30,7 @@ const SignUp = () => {
     return [
       setError('email', !isEmailValidate(email)),
       setError('password', !isPasswordValidate(password)),
-      setError('passwordMatch', password !== passwordCheck),
+      setError('passwordMatch', password !== passwordConfirm),
     ];
   };
 
@@ -69,9 +69,9 @@ const SignUp = () => {
               title="비밀번호 확인"
               placeholder="비밀번호를 입력하세요"
               type="password"
-              value={passwordCheck}
+              value={passwordConfirm}
               onChange={handleChange}
-              name="passwordCheck"
+              name="passwordConfirm"
               errorMessage={
                 isError.password ? LOCAL_ERROR.PASSWORD : isError.passwordMatch ? LOCAL_ERROR.PASSWORD_MATCH : ''
               }
