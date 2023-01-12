@@ -11,8 +11,10 @@ import isEmailValidate from '../../utils/isEmailValidate';
 import { LOCAL_ERROR } from '../../constants/error';
 import isPasswordValidate from '../../utils/isPasswordValidate';
 import useError from '../../hooks/useError';
+import { PAGE_PATH } from '../../constants/path';
 const SignIn = () => {
   const navigate = useNavigate();
+
   const [{ email, password }, _, handleChange] = useForm<SignInForm>({
     email: '',
     password: '',
@@ -22,16 +24,18 @@ const SignIn = () => {
     password: false,
     signIn: false,
   });
+
   const { mutate } = useSignInMutation(setError);
-  const toSignUpHandle = () => navigate('/signup');
+
+  const toSignUpHandle = () => navigate(PAGE_PATH.SIGN_UP);
   const isFormValidate = () => {
     return [setError('email', !isEmailValidate(email)), setError('password', !isPasswordValidate(password))];
   };
-
   const signInSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     !isFormValidate().includes(true) && mutate({ email, password });
   };
+
   return (
     <Board.Frame width="25rem">
       <Board.Body>

@@ -1,8 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
-    ${reset}
     *{
         box-sizing: border-box;
     }
@@ -21,6 +19,10 @@ const GlobalStyle = createGlobalStyle`
             font-size:16px
         }
         font-size: 9px;
+    }
+    a{
+        text-decoration: none;
+        color:inherit;
     }
 `;
 

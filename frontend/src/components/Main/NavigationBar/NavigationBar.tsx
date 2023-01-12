@@ -2,13 +2,14 @@ import React from 'react';
 import Board from '../../Common/Board/Board';
 import * as Style from './NavigationBar.styles';
 import { removeLocalStorage } from '../../../utils/localStorage';
+import { PAGE_PATH } from '../../../constants/path';
 import { useNavigate } from 'react-router';
 
 const NavigationBar = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     removeLocalStorage('token');
-    navigate('/signin');
+    navigate(PAGE_PATH.SIGN_IN);
   };
   return (
     <Style.NavigationBarLayout>

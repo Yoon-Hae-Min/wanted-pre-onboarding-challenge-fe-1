@@ -10,6 +10,7 @@ import { LOCAL_ERROR } from '../../constants/error';
 import isEmailValidate from '../../utils/isEmailValidate';
 import isPasswordValidate from '../../utils/isPasswordValidate';
 import useSignUpMutation from '../../hooks/SignUp/useSignUpMutation';
+import { PAGE_PATH } from '../../constants/path';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const SignUp = () => {
     passwordMatch: false,
   });
   const { mutate } = useSignUpMutation();
-  const toSignInHandle = () => navigate('/signin');
+  const toSignInHandle = () => navigate(PAGE_PATH.SIGN_IN);
   const isFormValidate = () => {
     return [
       setError('email', !isEmailValidate(email)),

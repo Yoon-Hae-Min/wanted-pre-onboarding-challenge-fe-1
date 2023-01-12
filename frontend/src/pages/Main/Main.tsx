@@ -9,13 +9,14 @@ import * as Style from './Main.styles';
 import useTodosQuery from '../../hooks/Main/useTodosQuery';
 import useTodoMutation from '../../hooks/Main/useTodoMutation';
 import useTodoQuery from '../../hooks/Main/useTodoQuery';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import useTodoDeleteMutation from '../../hooks/Main/useTodoDeleteMutation';
 import useTodoUpdateMutation from '../../hooks/Main/useTodoUpdateMutation';
 import NavigationBar from '../../components/Main/NavigationBar/NavigationBar';
+import { PAGE_PATH } from '../../constants/path';
+import { Link } from 'react-router-dom';
 
 const Main = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isModifyOpen, setIsModifyOpen] = useState(false);
@@ -30,7 +31,6 @@ const Main = () => {
   const handleCreateModal = () => setIsCreateOpen((pre) => !pre);
   const handleModifyModal = () => setIsModifyOpen((pre) => !pre);
 
-  const handleTodoDetail = (id: string) => navigate(`/${id}`);
   const handleDeleteTodo = (id: string) => confirm('삭제 하시겠습니까?') && deleteTodoMutate(id);
   return (
     <>
@@ -50,14 +50,8 @@ const Main = () => {
           <Style.TodoList>
             <>
               {todos?.data.data.map((todo) => (
-                <CheckBox
-                  key={todo.id}
-                  id={todo.id}
-                  onLabelClick={() => {
-                    handleTodoDetail(todo.id);
-                  }}
-                >
-                  {todo.title}
+                <CheckBox key={todo.id} id={todo.id}>
+                  <Link to={PAGE_PATH.TODO_DETAIL(todo.id)}>{todo.title}</Link>
                 </CheckBox>
               ))}
               <Style.FabWrapper>
