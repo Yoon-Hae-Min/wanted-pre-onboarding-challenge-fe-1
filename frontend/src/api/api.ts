@@ -3,7 +3,7 @@ import { BASE_URL } from '../constants/api';
 import { getLocalStorage, removeLocalStorage } from '../utils/localStorage';
 
 const api = axios.create({
-  baseURL: BASE_URL.DEV,
+  baseURL: process.env.NODE_ENV !== 'production' ? BASE_URL.DEV : BASE_URL.PROD,
 });
 
 api.interceptors.request.use(

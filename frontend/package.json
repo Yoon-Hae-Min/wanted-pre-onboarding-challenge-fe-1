@@ -16,6 +16,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "build:container": "docker build -t yunhatmi/todo-list-front .",
+    "clear:container": "docker rm -f yunhatmi/todo-list-front",
+    "start:container": "docker run --name todo-list-front -d -p 3000:3000 yunhatmi/todo-list-front",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
