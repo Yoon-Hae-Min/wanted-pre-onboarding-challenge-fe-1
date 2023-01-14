@@ -5,6 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "build:container": "docker build -t yunhatmi/todo-list-back .",
+    "clear:container": "docker rm -f yunhatmi/todo-list-back",
+    "start:container": "docker run --name todo-list-back -d -p 8080:8080 yunhatmi/todo-list-back",
     "start": "nodemon --ignore db/ --watch '*.ts' --exec node --experimental-modules --es-module-specifier-resolution=node --loader ts-node/esm index.ts",
     "build": "tsc"
   },
