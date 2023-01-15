@@ -4,12 +4,12 @@ import Board from '../../components/Common/Board/Board';
 import Button from '../../components/Common/Button/Button';
 import Input from '../../components/Common/Input/Input';
 import { useNavigate } from 'react-router-dom';
-import useError from '../../hooks/useError';
-import useForm from '../../hooks/useForm';
+import useError from '../../hooks/Common/useError';
+import useForm from '../../hooks/Common/useForm';
 import { LOCAL_ERROR } from '../../constants/error';
 import isEmailValidate from '../../utils/isEmailValidate';
 import isPasswordValidate from '../../utils/isPasswordValidate';
-import useSignUpMutation from '../../hooks/SignUp/useSignUpMutation';
+import useSignUpMutation from '../../hooks/SignUp/mutations/useSignUpMutation';
 import { PAGE_PATH } from '../../constants/path';
 
 const SignUp = () => {

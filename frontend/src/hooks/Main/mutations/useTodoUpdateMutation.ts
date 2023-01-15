@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { updateTodo } from '../../api/main';
+import { updateTodo } from '../../../api/main';
 import { AxiosResponse } from 'axios';
-import { Todo, TodoReadSuccess, TodosReadSuccess } from '../../types/main';
+import { Todo, TodoReadSuccess, TodosReadSuccess } from '../../../types/main';
 
 const useTodoUpdateMutation = () => {
   const queryClient = useQueryClient();
