@@ -18,8 +18,8 @@ import { Link } from 'react-router-dom';
 
 const Main = () => {
   const { id } = useParams();
-  const [isCreateOpen, setIsCreateOpen] = useState(false);
-  const [isModifyOpen, setIsModifyOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isModifyModalOpen, setIsModifyModalOpen] = useState(false);
 
   const { data: todos } = useTodosQuery();
   const { data: todo } = useTodoQuery(id);
@@ -28,16 +28,16 @@ const Main = () => {
   const { mutate: deleteTodoMutate } = useTodoDeleteMutation();
   const { mutate: updateTodoMutate } = useTodoUpdateMutation();
 
-  const toggleCreateModal = () => setIsCreateOpen((pre) => !pre);
-  const toggleModifyModal = () => setIsModifyOpen((pre) => !pre);
+  const toggleCreateModal = () => setIsCreateModalOpen((pre) => !pre);
+  const toggleModifyModal = () => setIsModifyModalOpen((pre) => !pre);
 
   const handleDeleteTodo = (id: string) => confirm('삭제 하시겠습니까?') && deleteTodoMutate(id);
   return (
     <>
-      <PostModal isOpen={isCreateOpen} handleClose={toggleCreateModal} mutate={createTodoMutate} />
+      <PostModal isOpen={isCreateModalOpen} handleClose={toggleCreateModal} mutate={createTodoMutate} />
       {todo && (
         <PostModal
-          isOpen={isModifyOpen}
+          isOpen={isModifyModalOpen}
           handleClose={toggleModifyModal}
           mutate={({ title, content }) => updateTodoMutate({ title, content, id: todo.data.data.id })}
           initialState={todo.data.data}
