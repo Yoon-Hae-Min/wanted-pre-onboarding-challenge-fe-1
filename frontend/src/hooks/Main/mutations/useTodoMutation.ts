@@ -9,7 +9,7 @@ const useTodoMutation = () => {
       await queryClient.cancelQueries({ queryKey: ['todos'] });
       const previousTodos = queryClient.getQueryData<AxiosResponse<TodosReadSuccess>>(['todos']);
       if (previousTodos) {
-        queryClient.setQueryData<AxiosResponse<TodosReadSuccess>>(['todos'], {
+        queryClient.setQueryData(['todos'], {
           ...previousTodos,
           data: {
             data: [
@@ -23,7 +23,7 @@ const useTodoMutation = () => {
     },
     onError: (err, newTodo, context) => {
       if (context?.previousTodos) {
-        queryClient.setQueryData<AxiosResponse<TodosReadSuccess>>(['todos'], context.previousTodos);
+        queryClient.setQueryData(['todos'], context.previousTodos);
       }
     },
     onSettled: () => {

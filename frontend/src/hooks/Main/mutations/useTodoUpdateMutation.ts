@@ -12,13 +12,13 @@ const useTodoUpdateMutation = () => {
       const previousTodo = queryClient.getQueryData<AxiosResponse<TodoReadSuccess>>(['todo', newTodo.id]);
       const previousTodos = queryClient.getQueryData<AxiosResponse<TodosReadSuccess>>(['todos']);
       if (previousTodo && previousTodos) {
-        queryClient.setQueryData<AxiosResponse<TodoReadSuccess>>(['todo', newTodo.id], {
+        queryClient.setQueryData(['todo', newTodo.id], {
           ...previousTodo,
           data: {
             data: newTodo,
           },
         });
-        queryClient.setQueryData<AxiosResponse<TodosReadSuccess>>(['todos'], {
+        queryClient.setQueryData(['todos'], {
           ...previousTodos,
           data: {
             data: previousTodos.data.data.map((todo) => (todo.id === newTodo.id ? newTodo : todo)),
@@ -29,10 +29,10 @@ const useTodoUpdateMutation = () => {
     },
     onError: (err, newTodo, context) => {
       if (context?.previousTodo) {
-        queryClient.setQueryData<AxiosResponse<TodoReadSuccess>>(['todo', newTodo.id], context.previousTodo);
+        queryClient.setQueryData(['todo', newTodo.id], context.previousTodo);
       }
       if (context?.previousTodos) {
-        queryClient.setQueryData<AxiosResponse<TodosReadSuccess>>(['todos'], context.previousTodos);
+        queryClient.setQueryData(['todos'], context.previousTodos);
       }
     },
     onSettled: (data, error, newTodo) => {
