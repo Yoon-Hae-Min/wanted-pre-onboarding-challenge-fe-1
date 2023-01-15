@@ -6,7 +6,7 @@ import Fab from '../../components/Common/Fab/Fab';
 import CheckBox from '../../components/Common/CheckBox/CheckBox';
 import PostModal from '../../components/Main/PostModal/PostModal';
 import * as Style from './Main.styles';
-import useTodosQuery from '../../hooks/Main/mutations/useTodosQuery';
+import useTodosQuery from '../../hooks/Main/queries/useTodosQuery';
 import useTodoMutation from '../../hooks/Main/mutations/useTodoMutation';
 import useTodoQuery from '../../hooks/Main/queries/useTodoQuery';
 import { useParams } from 'react-router-dom';
