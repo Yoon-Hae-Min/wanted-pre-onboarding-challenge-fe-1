@@ -28,17 +28,17 @@ const Main = () => {
   const { mutate: deleteTodoMutate } = useTodoDeleteMutation();
   const { mutate: updateTodoMutate } = useTodoUpdateMutation();
 
-  const handleCreateModal = () => setIsCreateOpen((pre) => !pre);
-  const handleModifyModal = () => setIsModifyOpen((pre) => !pre);
+  const toggleCreateModal = () => setIsCreateOpen((pre) => !pre);
+  const toggleModifyModal = () => setIsModifyOpen((pre) => !pre);
 
   const handleDeleteTodo = (id: string) => confirm('삭제 하시겠습니까?') && deleteTodoMutate(id);
   return (
     <>
-      <PostModal isOpen={isCreateOpen} handleClose={handleCreateModal} mutate={createTodoMutate} />
+      <PostModal isOpen={isCreateOpen} handleClose={toggleCreateModal} mutate={createTodoMutate} />
       {todo && (
         <PostModal
           isOpen={isModifyOpen}
-          handleClose={handleModifyModal}
+          handleClose={toggleModifyModal}
           mutate={({ title, content }) => updateTodoMutate({ title, content, id: todo.data.data.id })}
           initialState={todo.data.data}
         />
@@ -54,7 +54,7 @@ const Main = () => {
               </CheckBox>
             ))}
             <Style.FabWrapper>
-              <Fab onClick={handleCreateModal} />
+              <Fab onClick={toggleCreateModal} />
             </Style.FabWrapper>
           </Style.TodoList>
           <Line align="horizontal" height="100%" left="40%" />
@@ -63,7 +63,7 @@ const Main = () => {
             <Style.ArticleContent>{todo?.data.data.content}</Style.ArticleContent>
             <Style.ButtonWrapper>
               {todo && (
-                <Button color="primary" onClick={handleModifyModal}>
+                <Button color="primary" onClick={toggleModifyModal}>
                   수정
                 </Button>
               )}
