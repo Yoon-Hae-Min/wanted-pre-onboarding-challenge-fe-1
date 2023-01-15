@@ -8,12 +8,13 @@ import {
   TodoUpdateSuccess,
 } from '../types/main';
 import api from './api';
+import { QueryFunctionContext } from 'react-query';
 
 export const postTodo = ({ title, content }: TodoForm) => api.post<TodoCreateSuccess>('/todos', { title, content });
 
 export const getTodos = () => api.get<TodosReadSuccess>('/todos');
 
-export const getTodo = ({ queryKey }) => {
+export const getTodo = ({ queryKey }: QueryFunctionContext<[string, string | undefined]>) => {
   const [, id] = queryKey;
   return api.get<TodoReadSuccess>(`todos/${id}`);
 };
