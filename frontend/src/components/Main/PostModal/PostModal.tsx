@@ -1,4 +1,4 @@
-import React, { FC, FormEvent, useCallback, useEffect } from 'react';
+import React, { FC, FormEvent, useEffect } from 'react';
 import Modal from '../Modal/Modal';
 import TextArea from '../TextArea/TextArea';
 import Input from '../../Common/Input/Input';
@@ -7,7 +7,7 @@ import useForm from '../../../hooks/Common/useForm';
 import useError from '../../../hooks/Common/useError';
 import { TodoCreateSuccess, TodoForm, TodoUpdateSuccess, TodosReadSuccess } from '../../../types/main';
 import { LOCAL_ERROR } from '../../../constants/error';
-import isEmptyText from '../../../utils/isEmptyText';
+import textValidator from '../../../utils/textValidator';
 import * as Style from './PostModal.styles';
 import { UseMutateFunction } from 'react-query/types/react';
 import { AxiosResponse } from 'axios';
@@ -28,25 +28,27 @@ interface PostModalProps {
 
 const PostModal: FC<PostModalProps> = ({ isOpen, handleClose, mutate, initialState }) => {
   const [{ title, content }, _, handleChange, setState] = useForm(initialState ?? { title: '', content: '' });
-  const [isError, setError] = useError({
-    title: false,
-    content: false,
+  const [errorMessage, setErrorMessage] = useError({
+    title: '',
+    content: '',
   });
 
-  const isFormValidate = useCallback(() => {
-    return [setError('title', isEmptyText(title)), setError('content', isEmptyText(content))];
-  }, [title, content]);
+  const formValidator = () => {
+    const isTitleValidate = textValidator(title);
+    const isContentValidate = textValidator(content);
+    setErrorMessage('title', isTitleValidate ? LOCAL_ERROR.EMPTY : '');
+    setErrorMessage('content', isContentValidate ? LOCAL_ERROR.EMPTY : '');
+    return ![isTitleValidate, isContentValidate].includes(false);
+  };
 
-  const handleSubmit = useCallback(
-    (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      if (!isFormValidate().includes(true)) {
-        mutate({ title, content });
-        handleClose();
-      }
-    },
-    [title, content]
-  );
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (formValidator()) {
+      mutate({ title, content });
+      handleClose();
+    }
+  };
+
   useEffect(() => {
     initialState && setState(initialState);
   }, [initialState]);
@@ -64,7 +66,7 @@ const PostModal: FC<PostModalProps> = ({ isOpen, handleClose, mutate, initialSta
               name="title"
               value={title}
               onChange={handleChange}
-              errorMessage={isError.title ? LOCAL_ERROR.EMPTY : ''}
+              errorMessage={errorMessage.title}
             />
             <TextArea
               placeholder="내용을 입력해 주세요"
@@ -73,7 +75,7 @@ const PostModal: FC<PostModalProps> = ({ isOpen, handleClose, mutate, initialSta
               name="content"
               value={content}
               onChange={handleChange}
-              errorMessage={isError.content ? LOCAL_ERROR.EMPTY : ''}
+              errorMessage={errorMessage.content}
             />
           </Style.FormLayout>
         </Modal.Body>

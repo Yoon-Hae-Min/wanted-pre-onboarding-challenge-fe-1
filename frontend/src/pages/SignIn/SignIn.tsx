@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useEffect } from 'react';
 import Board from '../../components/Common/Board/Board';
 import * as Style from './SignIn.styles';
 import Button from '../../components/Common/Button/Button';
@@ -6,35 +6,45 @@ import Input from '../../components/Common/Input/Input';
 import useForm from '../../hooks/Common/useForm';
 import { useNavigate } from 'react-router-dom';
 import useSignInMutation from '../../hooks/SignIn/mutations/useSignInMutation';
-import { SignInForm } from '../../types/signIn';
-import isEmailValidate from '../../utils/isEmailValidate';
+import emailValidator from '../../utils/emailValidator';
+import passwordValidator from '../../utils/passwordValidator';
 import { LOCAL_ERROR } from '../../constants/error';
-import isPasswordValidate from '../../utils/isPasswordValidate';
 import useError from '../../hooks/Common/useError';
 import { PAGE_PATH } from '../../constants/path';
+
 const SignIn = () => {
   const navigate = useNavigate();
 
-  const [{ email, password }, _, handleChange] = useForm<SignInForm>({
+  const [{ email, password }, _, handleChange] = useForm({
     email: '',
     password: '',
   });
-  const [isError, setError] = useError({
-    email: false,
-    password: false,
-    signIn: false,
+  const [errorMessage, setErrorMessage] = useError({
+    email: '',
+    password: '',
   });
 
-  const { mutate } = useSignInMutation(setError);
+  const { mutate, error } = useSignInMutation();
 
   const toSignUpHandle = () => navigate(PAGE_PATH.SIGN_UP);
-  const isFormValidate = () => {
-    return [setError('email', !isEmailValidate(email)), setError('password', !isPasswordValidate(password))];
+
+  const formValidator = () => {
+    const isEmailValidate = emailValidator(email);
+    const isPasswordValidate = passwordValidator(password);
+    setErrorMessage('email', isEmailValidate ? '' : LOCAL_ERROR.EMAIL);
+    setErrorMessage('password', isPasswordValidate ? '' : LOCAL_ERROR.PASSWORD);
+    return ![isEmailValidate, isPasswordValidate].includes(false);
   };
+
   const signInSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    !isFormValidate().includes(true) && mutate({ email, password });
+    formValidator() && mutate({ email, password });
   };
+
+  useEffect(() => {
+    error && setErrorMessage('email', LOCAL_ERROR.SIGN_IN);
+    error && setErrorMessage('password', LOCAL_ERROR.SIGN_IN);
+  }, [error]);
 
   return (
     <Board.Frame width="25rem">
@@ -50,7 +60,7 @@ const SignIn = () => {
               name="email"
               value={email}
               onChange={handleChange}
-              errorMessage={isError.email ? LOCAL_ERROR.EMAIL : isError.signIn ? LOCAL_ERROR.SIGN_IN : ''}
+              errorMessage={errorMessage.email}
             />
             <Input
               title="비밀번호"
@@ -59,7 +69,7 @@ const SignIn = () => {
               name="password"
               value={password}
               onChange={handleChange}
-              errorMessage={isError.password ? LOCAL_ERROR.PASSWORD : isError.signIn ? LOCAL_ERROR.SIGN_IN : ''}
+              errorMessage={errorMessage.password}
             />
           </Style.SignInForm>
           <Style.SignInFooter>
