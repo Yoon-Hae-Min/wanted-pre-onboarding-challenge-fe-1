@@ -1,12 +1,12 @@
 FROM node:16
 
-WORKDIR /frontend
+COPY . .
 
 RUN npm install -g serve
 
-RUN mkdir ./build
+RUN yarn install
 
-COPY ./build ./build
+RUN yarn build
 
 EXPOSE 3000
 
