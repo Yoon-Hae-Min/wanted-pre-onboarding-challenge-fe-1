@@ -1,26 +1,9 @@
 import 'styled-components';
-interface colorsTheme {
-  blue: {
-    '3': string;
-  };
-  gray: {
-    '1': string;
-    '2': string;
-  };
-  white: {
-    '0': string;
-  };
-  red: {
-    '0': string;
-    '3': string;
-  };
-}
+import { animation, colors } from './theme';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    colors: colorsTheme;
-    animation: {
-      hoverButton: FlattenSimpleInterpolation;
-    };
+    colors: typeof colors;
+    animation: typeof animation;
   }
 }
